@@ -1,7 +1,7 @@
 'use strict';
 const AWS = require('aws-sdk');
- 
-module.exports.createCustomer = async (event) => {
+
+module.exports.createCustomer = async (event, context) => {
   const body = JSON.parse(Buffer.from(event.body, 'base64').toString());
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
   const putParams = {
@@ -12,8 +12,8 @@ module.exports.createCustomer = async (event) => {
     },
   };
   await dynamoDb.put(putParams).promise();
- 
+
   return {
-    statusCode: 201,
+    statusCode: 201
   };
 };
