@@ -1,10 +1,12 @@
 service: childName
 frameworkVersion: '3'
 
+
 provider:
   name: aws
   runtime: nodejs18.x
   region: eu-central-1
+  deploymentMethod: direct
   environment:
     DYNAMODB_CUSTOMER_TABLE: ${self:service}-customerTable-${sls:stage}
   provider:
@@ -24,8 +26,14 @@ functions:
     handler: createCustomer.createCustomer
     events:
      - httpApi:
-         path: /createCustomer
+         path: /
          method: post
+  getCustomers :
+    handler: getCustomers.getCustomers
+    events:
+     - httpApi:
+         path: /
+         method: get
 
 resources:
   Resources:
