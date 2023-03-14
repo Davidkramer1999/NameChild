@@ -1,7 +1,7 @@
 'use strict'
 const AWS = require('aws-sdk')
 
-module.exports.getCustomers = async (event) => {
+module.exports.getChildName = async (event) => {
     const scanParams = {
         TableName: process.env.DYNAMODB_CUSTOMER_TABLE
     }
@@ -17,13 +17,16 @@ module.exports.getCustomers = async (event) => {
 
     return {
         statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Credentials": true
+          },
         body: JSON.stringify({
             total: result.Count,
             items: await result.Items.map(customer => {
                 return {
-                    result:"SUCESS",
-                    name: customer.primary_key,
-                    email: customer.email
+                    nameChild: customer.nameChild,
+                    userName: customer.userName
                 }
             })
         })

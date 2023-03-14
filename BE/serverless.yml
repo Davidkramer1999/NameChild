@@ -22,17 +22,17 @@ provider:
             - 'dynamodb:DeleteItem'
           Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:service}-customerTable-${sls:stage}
 functions:
-  createCustomer:
-    handler: createCustomer.createCustomer
+  addChildName:
+    handler: addChildName.addChildName
     events:
      - httpApi:
-         path: /
+         path: /addChildName
          method: post
-  getCustomers :
-    handler: getCustomers.getCustomers
+  getChildName :
+    handler: getChildName.getChildName
     events:
      - httpApi:
-         path: /
+         path: /getChildName
          method: get
 
 resources:
