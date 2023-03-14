@@ -9,8 +9,8 @@
             <div>Pictures </div>
           </router-link>
         </li>
-        <li><router-link to="/MyServices#MyServices" class="nav-link" >
-          <div>Storitve</div>
+        <li><router-link to="/BabyPictures" class="nav-link" >
+          <div>BabyPictures</div>
         </router-link>
         </li>
         <li><router-link to="/Pricing#Pricing" class="nav-link" >
@@ -22,18 +22,15 @@
         </router-link>
         </li>
       </ul>
-      <Home></Home>
       <router-view></router-view>
     </div>
 </template>
 
 <script>
-import Home from './components/Home.vue'
 
 export default {
   name: 'App',
   components: {
-    Home
   }
 }
 </script>
