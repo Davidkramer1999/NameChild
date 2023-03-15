@@ -1,9 +1,8 @@
 <template>
   <div class="Pictures">
     Pictures
-    <button @click="(e) => addNameChild()">POST SOME DATA</button>
-    <button @click="() => getNameChild()">GET DATA</button>
-    {{ childName }}
+    <button @click="addNameChild()">POST SOME DATA</button>
+    <button @click="getNameChild()">GET DATA</button>
   </div>
 </template>
 
@@ -13,14 +12,10 @@ console.log(process.env.VUE_APP_TITLE);
 export default {
   data() {
     return {
-      childName: null,
+      childName: "",
     };
   },
   name: "Pictures",
-  props: {
-    msg: String,
-  },
-
   methods: {
     addNameChild() {
       fetch(

@@ -1,6 +1,6 @@
 <template>
   <div id="navigation">
-      <ul>
+      <!-- <ul>
         <li><router-link to="/" class="nav-link" >
           <div>Domov </div>
         </router-link>
@@ -21,7 +21,7 @@
           <div>Kontakt</div>
         </router-link>
         </li>
-      </ul>
+      </ul> -->
       <router-view></router-view>
     </div>
 </template>
@@ -42,6 +42,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
