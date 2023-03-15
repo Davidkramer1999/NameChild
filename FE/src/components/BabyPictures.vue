@@ -76,7 +76,7 @@
         data-aos-duration="1500"
         data-aos-delay="1000"
       >
-        <h1><br />{{ moment(date).format("DD.MM.YYYY") }}</h1>
+        <h1><br />{{ moment().format("DD.MM.YYYY") }}</h1>
         <div>
           Zdaj ko si me spoznal/a sem star
           <br />
@@ -171,14 +171,14 @@ export default {
   overflow: hidden;
 }
 .guide1Description h1 {
-  font-size: 48px;
+  font-size: 60px;
   color: #632b2b;
   padding: 120px 0px 20px 0px;
 }
 .guide1Description div {
   background: #fff3e2;
   color: #632b2b;
-  font-size: 20px;
+  font-size: 30px;
   padding: 10px;
   border-radius: 10px;
 }
