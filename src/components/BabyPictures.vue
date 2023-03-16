@@ -78,7 +78,7 @@
       >
         <h1><br />{{ moment().format("DD.MM.YYYY") }}</h1>
         <div>
-          Zdaj ko si me spoznal/a sem star
+          Zdaj ko si me spoznal/a, sem star
           <br />
           20 tednov, velik sem okoli 25cm in
           <br />
@@ -142,10 +142,11 @@ export default {
 * {
   margin: 0;
   padding: 0;
+	font-family: Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif; 
 }
 .intro {
   display: flex;
-  background: #fff3e2;
+  background: lightblue;
   justify-content: space-evenly;
   padding-top: 6rem;
   padding-bottom: 6rem;
@@ -153,40 +154,45 @@ export default {
 }
 .introDescription {
   font-size: 30px;
-  color: #632b2b;
+  color: black;
   padding-top: 120px;
 }
 .introDescription p {
   font-size: 50px;
-  color: #632b2b;
+  color: black;
   font-weight: 900;
 }
 .guide1 {
   display: flex;
-  background: #ffd4a9;
+  background: whitesmoke;
   justify-content: space-evenly;
   padding-top: 4rem;
   padding-bottom: 4rem;
   height: 500px;
   overflow: hidden;
 }
+.guide1Image {
+  box-shadow: 0.7rem 0.7rem 0rem grey;
+  border: 4px solid grey;
+}
 /* Main text  brown  */
 .guide1Description h1 {
+  text-align: center;
   font-size: 50px;
-  color: #632b2b;
-  padding: 120px 0px 20px 0px;
+  color: black;
+  padding: 120px 90px 20px 0px;
 }
 /* description section brown */
 .guide1Description div {
   font-size: 30px;
-  background: #fff3e2;
-  color: #632b2b;
+  background: lightblue;
+  color: black;
   padding: 10px;
   border-radius: 10px;
 }
 .guide2 {
+  background-color: lightblue;
   display: flex;
-  background: #fff3e2;
   justify-content: space-evenly;
   padding-top: 80px;
   padding-bottom: 4rem;
@@ -195,19 +201,19 @@ export default {
 }
 .guide2Description h1 {
   font-size: 50px;
-  color: #632b2b;
+  color: black;
   padding: 120px 0px 20px 0px;
 }
 .guide2Description div {
-  background: #ffd4a9;
-  color: #632b2b;
+  background: white;
+  color: black;
   font-size: 30px;
   padding: 10px;
   border-radius: 10px;
 }
 footer {
   background: #ffd4a9;
-  color: #632b2b;
+  color: black;
   padding: 10px;
   text-align: right;
   font-weight: 900;
@@ -215,14 +221,38 @@ footer {
 .inputName {
   display: flex;
   align-items: center;
-  width: 350px;
+  width: 450px;
   margin: 0 auto;
+  align-items: center;
+  box-shadow: 0.7rem 0.7rem 0rem grey !important;
+  border: 4px solid grey !important;
 }
 
 .input {
   background: #fff3e2;
   font-size: 30px;
   font-weight: 500;
+}
+
+.introImage {
+  box-shadow: 0.7rem 0.7rem 0rem grey;
+  border: 4px solid grey;
+}
+
+.guide2Image {
+  box-shadow: 0.7rem 0.7rem 0rem grey;
+  border: 4px solid grey;
+}
+
+footer {
+  background: lightblue;
+}
+
+input {
+  background: lightblue;
+  font-size: 30px;
+  font-weight: 500;
+  width: fit-content !important;
 }
 
 /* responsiveness */
@@ -234,7 +264,8 @@ footer {
     padding: 1rem;
   }
   .introImage {
-    width: 100%;
+    width: 90%;
+    margin-right: 1rem;
   }
   .introDescription {
     font-size: 30px;
@@ -242,7 +273,7 @@ footer {
   }
   .introDescription p {
     font-size: 50px;
-    color: #632b2b;
+    color:black;
     font-weight: 900;
   }
 
@@ -253,17 +284,18 @@ footer {
     padding: 1rem;
   }
   .guide1Image {
-    width: 100%;
+    width: 90%;
   }
   .guide1Description {
     padding: 20px;
   }
   .guide1Description h1 {
+    text-align: center;
     height: 10rem;
     font-size: 50px;
-    color: #632b2b;
+    color: black;
     font-weight: 900;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     padding-top: 0rem;
   }
   .guide2 {
@@ -280,20 +312,6 @@ footer {
   }
   .guide2Description h1 {
     padding: 30px 0px;
-  }
-
-  .inputName {
-    display: block;
-    align-items: center;
-    width: fit-content;
-    text-align: center;
-  }
-
-  input {
-    background: #fff3e2;
-    font-size: 30px;
-    font-weight: 500;
-    width: fit-content !important;
   }
 }
 </style>

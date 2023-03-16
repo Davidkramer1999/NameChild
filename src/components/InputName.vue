@@ -67,10 +67,11 @@ button {
   outline: none;
   text-align: center;
   padding: 0px 20px 0px 20px;
-  border: 2px solid #333;
+  border: 3px solid grey;
   font-size: 16px;
   cursor: pointer;
-  background: #fff3e2;
+  background: lightblue;
+  color: grey;
 }
 input {
   width: 100%;
@@ -78,8 +79,8 @@ input {
   border-radius: 30px;
   outline: none;
   padding: 0px 40px 0px 20px;
-  border: 2px solid #333;
-  background: #fff3e2;
+  border: 3px solid grey;
+  background: lightblue;
   font-size: 16px;
 }
 input:focus {

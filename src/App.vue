@@ -1,6 +1,6 @@
 <template>
   <div id="navigation">
-      <!-- <ul>
+    <!-- <ul>
         <li><router-link to="/" class="nav-link" >
           <div>Domov </div>
         </router-link>
@@ -22,25 +22,24 @@
         </router-link>
         </li>
       </ul> -->
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-  }
-}
+  name: "App",
+  components: {},
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family:Book-Antiqua;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  overflow: hidden !important;
 }
 </style>
