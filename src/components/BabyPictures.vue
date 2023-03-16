@@ -157,7 +157,7 @@ export default {
   padding-top: 120px;
 }
 .introDescription p {
-  font-size: 60px;
+  font-size: 50px;
   color: #632b2b;
   font-weight: 900;
 }
@@ -170,15 +170,17 @@ export default {
   height: 500px;
   overflow: hidden;
 }
+/* Main text  brown  */
 .guide1Description h1 {
-  font-size: 60px;
+  font-size: 50px;
   color: #632b2b;
   padding: 120px 0px 20px 0px;
 }
+/* description section brown */
 .guide1Description div {
+  font-size: 30px;
   background: #fff3e2;
   color: #632b2b;
-  font-size: 30px;
   padding: 10px;
   border-radius: 10px;
 }
@@ -192,14 +194,14 @@ export default {
   overflow: hidden;
 }
 .guide2Description h1 {
-  font-size: 48px;
+  font-size: 50px;
   color: #632b2b;
   padding: 120px 0px 20px 0px;
 }
 .guide2Description div {
   background: #ffd4a9;
   color: #632b2b;
-  font-size: 20px;
+  font-size: 30px;
   padding: 10px;
   border-radius: 10px;
 }
@@ -216,6 +218,13 @@ footer {
   width: 350px;
   margin: 0 auto;
 }
+
+.input {
+  background: #fff3e2;
+  font-size: 30px;
+  font-weight: 500;
+}
+
 /* responsiveness */
 @media screen and (max-width: 500px) {
   .intro {
@@ -228,11 +237,11 @@ footer {
     width: 100%;
   }
   .introDescription {
-    font-size: 20px;
+    font-size: 30px;
     padding: 10px 0px 0px 20px;
   }
   .introDescription p {
-    font-size: 40px;
+    font-size: 50px;
     color: #632b2b;
     font-weight: 900;
   }
@@ -250,7 +259,12 @@ footer {
     padding: 20px;
   }
   .guide1Description h1 {
-    padding: 30px 0px;
+    height: 10rem;
+    font-size: 50px;
+    color: #632b2b;
+    font-weight: 900;
+    padding-bottom: 2rem;
+    padding-top: 0rem;
   }
   .guide2 {
     display: block;
@@ -266,6 +280,20 @@ footer {
   }
   .guide2Description h1 {
     padding: 30px 0px;
+  }
+
+  .inputName {
+    display: block;
+    align-items: center;
+    width: fit-content;
+    text-align: center;
+  }
+
+  input {
+    background: #fff3e2;
+    font-size: 30px;
+    font-weight: 500;
+    width: fit-content !important;
   }
 }
 </style>

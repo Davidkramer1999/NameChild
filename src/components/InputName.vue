@@ -1,24 +1,18 @@
 <template>
   <div>
-    <form  >
-        <p v-if="errors.length">
-    <b>Please correct the following error(s):</b>
-    <ul>
-      <li v-for=" error in errors" v-bind:key="error">{{ error }}</li>
-    </ul>
-  </p>
-    <div>
-      <input type="text" v-model="name" placeholder="Text" />
-    </div>
-    <div>
-      <input
-        type="text"
-        v-model="choosingName"
-        placeholder="Kdo je pomagal izbrati ime"
-      />
-    </div>
-    <div><button @click= "(e) => checkForm(e)">Pošlji</button></div>
-</form>
+    <form>
+      <div>
+        <input type="text" v-model="name" placeholder="Text" />
+      </div>
+      <div>
+        <input
+          type="text"
+          v-model="choosingName"
+          placeholder="Kdo je pomagal izbrati ime"
+        />
+      </div>
+      <div><button @click="(e) => checkForm(e)">Pošlji</button></div>
+    </form>
   </div>
 </template>
 
@@ -27,44 +21,43 @@ export default {
   name: "InputName",
   data() {
     return {
-      errors: [],
       name: "",
       choosingName: "",
     };
   },
 
   methods: {
-    checkForm (e)  {
-      if (this.name.length > 0  && this.choosingName.length > 0) {
+    checkForm(e) {
+      e.preventDefault();
+      if (this.name.length > 0 && this.choosingName.length > 0) {
         return this.addNameChild();
       }
-
       this.errors = [];
-      console.log(this.errors);
       if (!this.name) {
-        this.errors.push('Name required.');
+        let myToast = this.$toasted.show(" ");
+        myToast.text("Prosim preverite vnešeno ime").goAway(3500);
       }
       if (!this.choosingName) {
-        this.errors.push('Age required.');
+        let myToast = this.$toasted.show(" ");
+        myToast.text("Prosim preverite polje spodnje polje").goAway(3500);
       }
-
-      e.preventDefault();
     },
     addNameChild() {
-      fetch(`${process.env.VUE_APP_TITLE}addChildName`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            nameChild: this.name,
-            userName: this.choosingName,
-          }),
-        }
-      )
+      fetch(`${process.env.VUE_APP_TITLE}addChildName`, {
+        method: "POST",
+        body: JSON.stringify({
+          nameChild: this.name,
+          userName: this.choosingName,
+        }),
+      })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then(() => {
+          let myToast = this.$toasted.show(" ");
+        myToast.text(`${this.choosingName} hvala za vaš glas`).goAway(3500);
+        });
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -77,6 +70,7 @@ button {
   border: 2px solid #333;
   font-size: 16px;
   cursor: pointer;
+  background: #fff3e2;
 }
 input {
   width: 100%;
@@ -85,47 +79,11 @@ input {
   outline: none;
   padding: 0px 40px 0px 20px;
   border: 2px solid #333;
+  background: #fff3e2;
   font-size: 16px;
 }
 input:focus {
-  border: 2px solid mediumslateblue;
+  border: 2px solid grey;
 }
 
-.bar {
-  width: 170px;
-  height: 170px;
-  border-radius: 10px;
-  background: #fff;
-  position: absolute;
-  right: 10px;
-  top: 40px;
-  box-shadow: 0px 0px 20px 0px #272727;
-  visibility: hidden;
-  opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 35px;
-  transition: all 0.3s;
-}
-img:focus + .bar {
-  top: 60px;
-  visibility: visible;
-  opacity: 1;
-}
-.bar:focus {
-  top: 60px;
-  visibility: visible;
-  opacity: 1;
-}
-p {
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-p:hover {
-  background: mediumslateblue;
-  color: white;
-}
 </style>

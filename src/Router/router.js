@@ -3,7 +3,7 @@ import Pictures from "../components/Pictures"
 import BabyPictures from "../components/BabyPictures"
 export default [
     {
-        path: "/",
+        path: "/Home",
         name: "Home",
         component: Home
     },
@@ -13,7 +13,7 @@ export default [
         component: Pictures
     },
     {
-        path: "/BabyPictures",
+        path: "/",
         name: "BabyPictures",
         component: BabyPictures
     }

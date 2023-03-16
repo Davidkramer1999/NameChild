@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import moment from 'moment'
+import Toasted from 'vue-toasted';
+Vue.use(Toasted)
 
 Vue.prototype.moment = moment
 
