@@ -80,7 +80,7 @@
         <div>
           Zdaj ko si me spoznal/a, sem star
           <br />
-          20 tednov, velik sem okoli 25cm in
+          {{ calculateWeeks() }} tednov, velik sem okoli 25cm in
           <br />
           tehtam okoli 300g.
           <br />
@@ -131,10 +131,18 @@
   </main>
 </template>
 <script>
+import moment from "moment";
 import InputName from "./InputName.vue";
 export default {
   name: "BabyPictures",
   components: { InputName },
+  methods: {
+    calculateWeeks() {
+      const date = moment("10.10.2022", "DD.MM.YYYY");
+      const dateToday = moment();
+      return dateToday.diff(date, "weeks");
+    },
+  },
 };
 </script>
 
@@ -144,6 +152,7 @@ export default {
   padding: 0;
   font-family: Book Antiqua, Palatino, Palatino Linotype, Palatino LT STD,
     Georgia, serif;
+  cursor: url("../images/picture6.png"), auto !important;
 }
 .intro {
   display: flex;
@@ -266,7 +275,7 @@ footer {
     padding: 10px 0px 0px 20px;
   }
   .introDescription p {
-    padding-bottom:2rem;
+    padding-bottom: 2rem;
     font-size: 40px;
     color: black;
     font-weight: 900;
@@ -312,7 +321,7 @@ footer {
     padding-bottom: 1rem;
     font-size: 40px;
   }
-  .inputName{
+  .inputName {
     display: table-cell;
   }
 }

@@ -2,14 +2,10 @@
   <div>
     <form>
       <div>
-        <input type="text" v-model="name" placeholder="Text" />
+        <input type="text" v-model="name" placeholder="Moje ime" />
       </div>
       <div>
-        <input
-          type="text"
-          v-model="choosingName"
-          placeholder="Kdo je pomagal izbrati ime"
-        />
+        <input type="text" v-model="choosingName" placeholder="Tvoje ime" />
       </div>
       <div><button @click="(e) => checkForm(e)">Pošlji</button></div>
     </form>
@@ -17,6 +13,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "InputName",
   data() {
@@ -27,7 +24,13 @@ export default {
   },
 
   methods: {
+    calculateBirth() {
+      const date = moment("28.7.2023", "DD.MM.YYYY");
+      const dateToday = moment();
+      return date.diff(dateToday, "weeks");
+    },
     checkForm(e) {
+      console.log(this.calculateBirth());
       e.preventDefault();
       if (this.name.length > 0 && this.choosingName.length > 0) {
         return this.addNameChild();
@@ -53,7 +56,7 @@ export default {
         .then((response) => response.json())
         .then(() => {
           let myToast = this.$toasted.show(" ");
-        myToast.text(`${this.choosingName} hvala za vaš glas`).goAway(3500);
+          myToast.text(`${this.choosingName}, se vidimo cež ${this.calculateBirth()}tednov `).goAway(3500);
         });
     },
   },
@@ -74,7 +77,7 @@ button {
   color: grey;
 }
 input {
-  width: 70% !important;
+  width: 80% !important;
   height: 40px;
   border-radius: 30px;
   outline: none;
@@ -87,4 +90,16 @@ input:focus {
   border: 2px solid grey;
 }
 
+@media screen and (max-width: 500px) {
+  input {
+    width: 83% !important;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    padding: 0px 20px 0px 20px;
+    border: 3px solid grey;
+    background: lightblue;
+    font-size: 16px;
+  }
+}
 </style>

@@ -16,17 +16,6 @@ export default {
   },
   name: "Pictures",
   methods: {
-    addNameChild() {
-      fetch(
-        "https://q3495uxw3e.execute-api.eu-central-1.amazonaws.com/addChildName",
-        {
-          method: "POST",
-          body: JSON.stringify({ nameChild: "aaaaaa", userName: "bbbbb" }),
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-    },
     getNameChild() {
       try {
         fetch(
@@ -41,6 +30,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>
