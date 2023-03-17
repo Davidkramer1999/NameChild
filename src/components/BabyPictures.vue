@@ -142,7 +142,8 @@ export default {
 * {
   margin: 0;
   padding: 0;
-	font-family: Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif; 
+  font-family: Book Antiqua, Palatino, Palatino Linotype, Palatino LT STD,
+    Georgia, serif;
 }
 .intro {
   display: flex;
@@ -180,7 +181,7 @@ export default {
   text-align: center;
   font-size: 50px;
   color: black;
-  padding: 120px 90px 20px 0px;
+  padding: 120px 0px 20px 0px;
 }
 /* description section brown */
 .guide1Description div {
@@ -219,7 +220,6 @@ footer {
   font-weight: 900;
 }
 .inputName {
-  display: flex;
   align-items: center;
   width: 450px;
   margin: 0 auto;
@@ -228,10 +228,11 @@ footer {
   border: 4px solid grey !important;
 }
 
-.input {
-  background: #fff3e2;
+input {
+  background: lightblue;
   font-size: 30px;
   font-weight: 500;
+  width: fit-content !important;
 }
 
 .introImage {
@@ -246,13 +247,6 @@ footer {
 
 footer {
   background: lightblue;
-}
-
-input {
-  background: lightblue;
-  font-size: 30px;
-  font-weight: 500;
-  width: fit-content !important;
 }
 
 /* responsiveness */
@@ -272,8 +266,9 @@ input {
     padding: 10px 0px 0px 20px;
   }
   .introDescription p {
-    font-size: 50px;
-    color:black;
+    padding-bottom:2rem;
+    font-size: 40px;
+    color: black;
     font-weight: 900;
   }
 
@@ -288,11 +283,12 @@ input {
   }
   .guide1Description {
     padding: 20px;
+    padding-bottom: 2rem !important;
   }
   .guide1Description h1 {
+    padding-right: 0px;
     text-align: center;
-    height: 10rem;
-    font-size: 50px;
+    font-size: 40px;
     color: black;
     font-weight: 900;
     padding-bottom: 1rem;
@@ -308,10 +304,16 @@ input {
     width: 100%;
   }
   .guide2Description {
+    padding-top: 0px !important;
     padding: 20px;
   }
   .guide2Description h1 {
-    padding: 30px 0px;
+    padding-top: 0rem;
+    padding-bottom: 1rem;
+    font-size: 40px;
+  }
+  .inputName{
+    display: table-cell;
   }
 }
 </style>

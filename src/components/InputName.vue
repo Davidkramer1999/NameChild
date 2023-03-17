@@ -74,7 +74,7 @@ button {
   color: grey;
 }
 input {
-  width: 100%;
+  width: 70% !important;
   height: 40px;
   border-radius: 30px;
   outline: none;
