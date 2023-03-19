@@ -2,10 +2,21 @@
   <div>
     <form>
       <div>
-        <input type="text" v-model="name" placeholder="Moje ime" />
+        <input
+          type="text"
+          v-model="name"
+          ref="Ime"
+          @change="checkSpecialCharacters(name)"
+          placeholder="Moje ime"
+        />
       </div>
       <div>
-        <input type="text" v-model="choosingName" placeholder="Tvoje ime" />
+        <input
+          type="text"
+          v-model="choosingName"
+          @change="checkSpecialCharacters(choosingName)"
+          placeholder="Tvoje ime"
+        />
       </div>
       <div><button @click="(e) => checkForm(e)">Pošlji</button></div>
     </form>
@@ -22,20 +33,30 @@ export default {
       choosingName: "",
     };
   },
+  computed: {},
 
   methods: {
+    checkSpecialCharacters(name) {
+      if (!name) {
+        return;
+      }
+      const specialCharacters = /[`!@#$%^&*()_+\-=\\|,.<>?~]/;
+      let myToast = this.$toasted
+        .show("Prosim ne vpisujte posebnih znakov")
+        .goAway(3500);
+      return specialCharacters.test(name) ? myToast : name;
+    },
     calculateBirth() {
       const date = moment("28.7.2023", "DD.MM.YYYY");
       const dateToday = moment();
       return date.diff(dateToday, "weeks");
     },
     checkForm(e) {
-      console.log(this.calculateBirth());
       e.preventDefault();
+
       if (this.name.length > 0 && this.choosingName.length > 0) {
         return this.addNameChild();
       }
-      this.errors = [];
       if (!this.name) {
         let myToast = this.$toasted.show(" ");
         myToast.text("Prosim preverite vnešeno ime").goAway(3500);
@@ -56,7 +77,15 @@ export default {
         .then((response) => response.json())
         .then(() => {
           let myToast = this.$toasted.show(" ");
-          myToast.text(`${this.choosingName}, se vidimo cež ${this.calculateBirth()}tednov `).goAway(3500);
+          this.name = "";
+          this.choosingName;
+          myToast
+            .text(
+              `${
+                this.choosingName
+              }, se vidimo cež ${this.calculateBirth()}tednov `
+            )
+            .goAway(3500);
         });
     },
   },
