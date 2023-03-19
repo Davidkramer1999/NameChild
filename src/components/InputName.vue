@@ -36,6 +36,11 @@ export default {
   computed: {},
 
   methods: {
+    calculateBirth() {
+      const date = moment("28.7.2023", "DD.MM.YYYY");
+      const dateToday = moment();
+      return date.diff(dateToday, "weeks");
+    },
     checkSpecialCharacters(name) {
       if (!name) {
         return;
@@ -46,24 +51,19 @@ export default {
         .goAway(3500);
       return specialCharacters.test(name) ? myToast : name;
     },
-    calculateBirth() {
-      const date = moment("28.7.2023", "DD.MM.YYYY");
-      const dateToday = moment();
-      return date.diff(dateToday, "weeks");
-    },
     checkForm(e) {
       e.preventDefault();
 
-      if (this.name.length > 0 && this.choosingName.length > 0) {
+      if (this.name && this.age) {
         return this.addNameChild();
       }
       if (!this.name) {
-        let myToast = this.$toasted.show(" ");
-        myToast.text("Prosim preverite vnešeno ime").goAway(3500);
+        let nameToast = this.$toasted.show(" ");
+        nameToast.text("Prosim preverite vnešeno ime").goAway(3500);
       }
       if (!this.choosingName) {
-        let myToast = this.$toasted.show(" ");
-        myToast.text("Prosim preverite polje spodnje polje").goAway(3500);
+        let choosingNameToast = this.$toasted.show(" ");
+        choosingNameToast.text("Prosim preverite polje Tvoje ime").goAway(3500);
       }
     },
     addNameChild() {
@@ -100,10 +100,11 @@ button {
   text-align: center;
   padding: 0px 20px 0px 20px;
   border: 3px solid grey;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
   background: lightblue;
   color: grey;
+  font-weight: 600;
 }
 input {
   width: 80% !important;
@@ -113,7 +114,8 @@ input {
   padding: 0px 40px 0px 20px;
   border: 3px solid grey;
   background: lightblue;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 600;
 }
 input:focus {
   border: 2px solid grey;
