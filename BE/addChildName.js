@@ -22,6 +22,6 @@ module.exports.addChildName = async (event, context) => {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Credentials": true,
     },
-    body: JSON.stringify({ message: "Name added" }),
+    body: JSON.stringify({ message: "Name added", sucess: true }),
   };
 };

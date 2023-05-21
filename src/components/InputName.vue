@@ -2,10 +2,10 @@
   <div>
     <form>
       <div>
-        <input type="text" v-model="name" ref="Ime" placeholder="Moje ime" />
+        <input type="text" v-model="name" ref="Ime" required placeholder="Moje ime" />
       </div>
       <div>
-        <input type="text" v-model="choosingName" placeholder="Tvoje ime" />
+        <input type="text" v-model="choosingName" required placeholder="Tvoje ime" />
       </div>
       <div><button @click="(e) => checkForm(e)">Pošlji</button></div>
     </form>
@@ -44,14 +44,12 @@ export default {
       return this.$toasted.show(text).goAway(3500);
     },
     checkForm(e) {
-      e.preventDefault();
       if (!this.name) {
         this.toast("Prosim preverite vnešeno ime");
       }
       if (!this.choosingName) {
         this.toast("Prosim preverite polje spodnje polje");
       }
-      console.log(this.checkSpecialCharacters(this.choosingName));
       if (!this.checkSpecialCharacters(this.choosingName)) {
         return; // add a return statement to exit the method
       }
@@ -61,23 +59,24 @@ export default {
       this.addNameChild();
     },
     addNameChild() {
-      fetch(`${process.env.VUE_APP_TITLE}addChildName`, {
-        method: "POST",
-        body: JSON.stringify({
-          nameChild: this.name,
-          userName: this.choosingName,
-        }),
-      })
-        .then((response) => response.json())
-        .then(() => {
-          this.name = "";
-          this.toast(
-            `${
-              this.choosingName
-            }, se vidimo cež ${this.calculateBirth()}tednov `
-          );
-          this.choosingName = "";
+      try {
+        fetch(`${process.env.VUE_APP_TITLE}addChildName`, {
+          method: "POST",
+          body: JSON.stringify({
+            nameChild: this.name,
+            userName: this.choosingName,
+          }),
+        }).then((data) => {
+          if (data?.message) {
+            this.name = "";
+            this.toast(`${this.choosingName}, se vidimo cež ${this.calculateBirth()}tednov `);
+            this.choosingName = "";
+          }
         });
+      } catch (error) {
+        this.toast("Nekaj je šlo narobe, poskusite ponovno");
+        // ...
+      }
     },
   },
 };
