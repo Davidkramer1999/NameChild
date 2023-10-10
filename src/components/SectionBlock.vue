@@ -1,14 +1,14 @@
 <template>
     <section :class="sectionClass">
-        <img :class="imageClass" :src="imageSrc" :alt="imageAlt" v-bind="aosData" />
-        <div :class="descriptionClass" v-bind="aosData">
-            <slot></slot>
-        </div>
+        <img :src="imageSrc" :class="imageClass" :data-aos="aosData['data-aos']"
+            :data-aos-duration="aosData['data-aos-duration']" :data-aos-delay="aosData['data-aos-delay']" />
+        <div :class="descriptionClass" v-html="content" :data-aos="aosData['data-aos']"
+            :data-aos-duration="aosData['data-aos-duration']" :data-aos-delay="aosData['data-aos-delay']"></div>
     </section>
 </template>
 
 <script>
 export default {
-    props: ['sectionClass', 'imageClass', 'descriptionClass', 'imageSrc', 'imageAlt', 'aosData']
+    props: ['sectionClass', 'imageClass', 'descriptionClass', 'imageSrc', 'aosData', 'content'],
 }
 </script>

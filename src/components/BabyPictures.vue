@@ -1,77 +1,10 @@
 <template>
   <main id="app">
-    <SectionBlock sectionClass="intro" imageClass="introImage" descriptionClass="introDescription"
-      :aosData="{ 'data-aos': 'zoom-in', 'data-aos-duration': '1500', 'data-aos-delay': '500' }" :imageSrc="picture1">
-      <div>Dan ko sta mami in ati izvedela zame</div>
-      <p>22.11.2022</p>
+    <SectionBlock v-for="(section, index) in sections" :key="index" :sectionClass="section.sectionClass"
+      :imageClass="section.imageClass" :descriptionClass="section.descriptionClass" :imageSrc="section.imageSrc"
+      :aosData="section.aos" :content="section.content">
     </SectionBlock>
 
-
-    <SectionBlock sectionClass="guide1" imageClass="guide1Image" descriptionClass="guide1Description" :imageSrc="picture2"
-      :aosData="{
-        'data-aos': 'slide-down',
-        'data-aos-ease': 'ease',
-        'data-aos-duration': '1500',
-        'data-aos-delay': '500'
-      }">
-      <h1><br />23.11.2022</h1>
-      <div>
-        Mami seveda ni mogla verjeti,
-        <br />
-        zato je test ponovila... večkrat
-        <br />
-      </div>
-    </SectionBlock>
-
-    <SectionBlock sectionClass="intro" imageClass="introImage" descriptionClass="introDescription" :imageSrc="picture3"
-      :aosData="{
-        'data-aos': 'zoom-in',
-        'data-aos-duration': '1500',
-        'data-aos-delay': '500'
-      }">
-      <div>
-        Mami je lahko naredila prvi noseščniški test
-        <br />
-        in ugotovila da sem star 2-3 tedna.
-        <br />
-      </div>
-      <br />
-      <p>24.11.2022</p>
-    </SectionBlock>
-
-
-    <SectionBlock sectionClass="guide1" imageClass="guide1Image" descriptionClass="guide1Description" :imageSrc="picture4"
-      :aosData="{
-        'data-aos': 'slide-down',
-        'data-aos-ease': 'ease',
-        'data-aos-duration': '1500',
-        'data-aos-delay': '500'
-      }">
-      <h1><br />{{ moment().format("DD.MM.YYYY") }}</h1>
-      <div>
-        Zdaj ko si me spoznal/a, sem star
-        <br />
-        {{ calculateWeeks }} tednov, velik sem okoli 25cm in
-        <br />
-        tehtam okoli 300g.
-        <br />
-      </div>
-    </SectionBlock>
-
-    <SectionBlock sectionClass="guide2" imageClass="guide2Image" descriptionClass="guide2Description" :imageSrc="picture5"
-      :aosData="{
-        'data-aos': 'slide-down',
-        'data-aos-ease': 'ease',
-        'data-aos-duration': '1500',
-        'data-aos-delay': '1000'
-      }">
-      <h1>21.2.2023 <br /></h1>
-      <div>
-        Dan ko sta mami
-        <br />
-        in ati izvedela, da sem fantek
-      </div>
-    </SectionBlock>
     <section class="guide1">
       <div class="guide1Description" data-aos="slide-up" data-aos-ease="ease" data-aos-duration="1500"
         data-aos-delay="1000">
@@ -106,8 +39,25 @@ export default {
       picture4,
       picture5,
       picture6,
+
     };
   },
+  methods: {
+    generateContentWithDateAndWeeks(currentDate, weeks) {
+      return `
+        <h1>${currentDate}</h1>
+        <div>
+          Zdaj ko si me spoznal/a, sem star
+          <br />
+          ${weeks} tednov, velik sem okoli 25cm in
+          <br />
+          tehtam okoli 300g.
+          <br />
+        </div>
+      `;
+    }
+  },
+
   computed: {
     currentDate() {
       return moment().format("DD.MM.YYYY");
@@ -116,6 +66,67 @@ export default {
       const date = moment("10.10.2022", "DD.MM.YYYY");
       const dateToday = moment();
       return dateToday.diff(date, "weeks");
+    },
+    sections() {
+      const currentDate = this.currentDate;
+      const calculatedWeeks = this.calculatedWeeks;
+      return [
+        {
+          sectionClass: 'intro',
+          imageClass: 'introImage',
+          descriptionClass: 'introDescription',
+          imageSrc: picture3,
+          content: `
+          <div>
+            Mami je lahko naredila prvi noseščniški test
+            <br />
+            in ugotovila da sem star 2-3 tedna.
+            <br />
+          </div>
+          <br />
+          <p>24.11.2022</p>
+        `,
+          aos: {
+            'data-aos': 'zoom-in',
+            'data-aos-duration': '1500',
+            'data-aos-delay': '500'
+          }
+        },
+        {
+          sectionClass: 'guide1',
+          imageClass: 'guide1Image',
+          descriptionClass: 'guide1Description',
+          imageSrc: picture4,
+          content: this.generateContentWithDateAndWeeks(currentDate, calculatedWeeks),
+          aos: {
+            'data-aos': 'slide-down',
+            'data-aos-ease': 'ease',
+            'data-aos-duration': '1500',
+            'data-aos-delay': '500'
+          }
+        },
+        {
+          sectionClass: 'guide2',
+          imageClass: 'guide2Image',
+          descriptionClass: 'guide2Description',
+          imageSrc: picture5,
+          content: `
+          <h1>21.2.2023 <br /></h1>
+          <div>
+            Dan ko sta mami
+            <br />
+            in ati izvedela, da sem fantek
+          </div>
+        `,
+          aos: {
+            'data-aos': 'slide-down',
+            'data-aos-ease': 'ease',
+            'data-aos-duration': '1500',
+            'data-aos-delay': '1000'
+          }
+        }
+      ]
+
     }
   }
 };
