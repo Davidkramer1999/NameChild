@@ -1,27 +1,22 @@
-import Vue from 'vue'
-import App from './App.vue'
-import Routes from "./Router/router"
-import VueRouter from 'vue-router'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import moment from 'moment'
-import Toasted from 'vue-toasted';
-Vue.use(Toasted)
+import { createApp } from 'vue';
+import App from './App.vue';
+import Routes from './Router/router';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import moment from 'moment';
+import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 
-Vue.prototype.moment = moment
+const app = createApp(App);
 
-Vue.config.productionTip = false
-Vue.use(VueRouter);
+app.config.globalProperties.moment = moment;
 
-const router = new VueRouter({
-  routes: Routes,
-})
+app.use(PrimeVue, { unstyled: true });
+app.use(ToastService);
+
+app.use(Routes);
 
 
-new Vue({
-  render: h => h(App),
-  mounted() {
-    AOS.init()
-  },
-  router: router,
-}).$mount('#app')
+app.mount('#app').$nextTick(() => {
+  AOS.init();
+});

@@ -2,125 +2,117 @@
   <div>
     <form>
       <div>
-        <input type="text" v-model="name" ref="Ime" placeholder="Moje ime" />
+        <CustomInput type="text" v-model="name" placeholder="Moje ime" />
+        <ErrorMessage :message="nameError" />
       </div>
       <div>
-        <input type="text" v-model="choosingName" placeholder="Tvoje ime" />
+        <CustomInput type="text" v-model="choosingName" placeholder="Tvoje ime" />
+        <ErrorMessage :message="choosingNameError" />
       </div>
-      <div><button @click="(e) => checkForm(e)">Pošlji</button></div>
+      <div>
+        <CustomButton @click="checkForm">Pošlji</CustomButton>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
-import moment from "moment";
-export default {
-  name: "InputName",
-  data() {
+import { defineComponent } from 'vue';
+import { useToast } from 'primevue/usetoast'; // Import useToast
+import CustomInput from './CustomInput.vue';
+import CustomButton from './CustomButton.vue';
+import { postRequest } from './services/apiService'
+import { ref } from 'vue'
+import { calculateWeeksDifference, validateSpecialChars } from './utilities/utilities'
+import ErrorMessage from './ErrorMessage.vue';
+
+export default defineComponent({
+  name: 'InputName',
+  components: {
+    CustomInput,
+    CustomButton,
+    ErrorMessage
+  },
+  setup() {
+    const name = ref('');
+    const choosingName = ref('');
+    const toast = useToast();
+    const nameError = ref('');
+    const choosingNameError = ref('')
+    const showToast = (message, severity) => {
+      toast.add({ severity: severity, summary: message, life: 3000 });
+    };
+
+
+    const validateForm = (name, choosingName) => {
+      let isValid = true;
+
+      // Reset error messages
+      nameError.value = '';
+      choosingNameError.value = '';
+
+      if (!name) {
+        nameError.value = 'Name is required'; // Set error message
+        isValid = false;
+      }
+
+      if (!choosingName) {
+        choosingNameError.value = 'Choosing name is required'; // Set error message
+        isValid = false;
+      }
+
+      if (!validateSpecialChars(name) || !validateSpecialChars(choosingName)) {
+        showToast('Validation failed', 'error');
+        isValid = false;
+      }
+
+      return isValid;
+    };
+
+
+    const submitForm = async (name, choosingName) => {
+      try {
+        const payload = {
+          nameChild: name,
+          userName: choosingName,
+        };
+
+        const response = await postRequest(`${process.env.VUE_APP_TITLE}addChildName`, payload);
+
+        if (response) {
+          showToast(`${choosingName}, se vidimo cež ${calculateWeeksDifference('28.7.2023')} tednov`, 'success');
+          return true;
+        }
+      } catch (error) {
+        showToast(`An error occurred`, 'error');
+      }
+
+      return false;
+    };
+
+    const checkForm = async (e) => {
+      e.preventDefault();
+      console.log(name, choosingName, 'name, choosingName');
+      if (validateForm(name.value, choosingName.value)) {
+        const isSuccess = await submitForm(name.value, choosingName.value);
+        console.log(isSuccess, 'isSuccess');
+        if (isSuccess) {
+          name.value = '';
+          choosingName.value = '';
+        }
+      }
+    };
+
     return {
-      name: "",
-      choosingName: "",
+      name,
+      choosingName,
+      showToast,
+      checkForm,
+      nameError, // add this
+      choosingNameError
     };
   },
-  computed: {},
-
-  methods: {
-    calculateBirth() {
-      const date = moment("28.7.2023", "DD.MM.YYYY");
-      const dateToday = moment();
-      return date.diff(dateToday, "weeks");
-    },
-    checkSpecialCharacters(input) {
-      const specialCharacters = /[`!@#$%^&*()_+\-=\\|,.<>?~]/;
-      if (specialCharacters.test(input)) {
-        specialCharacters.test(input);
-        this.toast("Prosim ne vpisujte posebnih znakov");
-        return false;
-      } else {
-        return true;
-      }
-    },
-    toast(text) {
-      return this.$toasted.show(text).goAway(3500);
-    },
-    checkForm(e) {
-      e.preventDefault();
-      if (!this.name) {
-        this.toast("Prosim preverite vnešeno ime");
-      }
-      if (!this.choosingName) {
-        this.toast("Prosim preverite polje spodnje polje");
-      }
-      console.log(this.checkSpecialCharacters(this.choosingName));
-      if (!this.checkSpecialCharacters(this.choosingName)) {
-        return; // add a return statement to exit the method
-      }
-      if (!this.checkSpecialCharacters(this.name)) {
-        return; // add a return statement to exit the method
-      }
-      this.addNameChild();
-    },
-    addNameChild() {
-      fetch(`${process.env.VUE_APP_TITLE}addChildName`, {
-        method: "POST",
-        body: JSON.stringify({
-          nameChild: this.name,
-          userName: this.choosingName,
-        }),
-      })
-        .then((response) => response.json())
-        .then(() => {
-          this.name = "";
-          this.toast(
-            `${
-              this.choosingName
-            }, se vidimo cež ${this.calculateBirth()}tednov `
-          );
-          this.choosingName = "";
-        });
-    },
-  },
-};
+});
 </script>
 
-<style scoped>
-button {
-  height: 40px;
-  border-radius: 30px;
-  outline: none;
-  text-align: center;
-  padding: 0px 20px 0px 20px;
-  border: 3px solid grey;
-  font-size: 20px;
-  cursor: pointer;
-  background: lightblue;
-  color: grey;
-}
-input {
-  width: 80% !important;
-  height: 40px;
-  border-radius: 30px;
-  outline: none;
-  padding: 0px 40px 0px 20px;
-  border: 3px solid grey;
-  background: lightblue;
-  font-size: 20px;
-  color: black;
-}
-input:focus {
-  border: 4px solid grey;
-}
-
-@media screen and (max-width: 500px) {
-  input {
-    width: 83% !important;
-    height: 40px;
-    border-radius: 30px;
-    outline: none;
-    padding: 0px 20px 0px 20px;
-    border: 3px solid grey;
-    background: lightblue;
-    font-size: 16px;
-  }
-}
-</style>
+<style scoped></style>

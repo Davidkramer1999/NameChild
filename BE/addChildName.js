@@ -3,6 +3,7 @@ const AWS = require("aws-sdk");
 const uuid = require("uuid");
 
 module.exports.addChildName = async (event, context) => {
+  console.log(event);
   const body = JSON.parse(event.body);
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
   const putParams = {
