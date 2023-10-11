@@ -17,16 +17,14 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { useToast } from 'primevue/usetoast'; // Import useToast
 import CustomInput from './CustomInput.vue';
 import CustomButton from './CustomButton.vue';
-import { postRequest } from './services/apiService'
-import { ref } from 'vue'
-import { calculateWeeksDifference, validateSpecialChars } from './utilities/utilities'
 import ErrorMessage from './ErrorMessage.vue';
+import { postRequest } from './services/apiService';
+import { useToast } from 'primevue/usetoast';
+import { calculateWeeksDifference, validateSpecialChars } from './utilities/utilities';
 
-export default defineComponent({
+export default {
   name: 'InputName',
   components: {
     CustomInput,
@@ -34,85 +32,77 @@ export default defineComponent({
     ErrorMessage
   },
   setup() {
-    const name = ref('');
-    const choosingName = ref('');
     const toast = useToast();
-    const nameError = ref('');
-    const choosingNameError = ref('')
-    const showToast = (message, severity) => {
+
+    function showToast(message, severity) {
       toast.add({ severity: severity, summary: message, life: 3000 });
+    }
+
+    return {
+      showToast
     };
-
-
-    const validateForm = (name, choosingName) => {
+  },
+  data() {
+    return {
+      name: '',
+      choosingName: '',
+      nameError: '',
+      choosingNameError: ''
+    };
+  },
+  methods: {
+    validateForm() {
       let isValid = true;
 
-      // Reset error messages
-      nameError.value = '';
-      choosingNameError.value = '';
+      this.nameError = '';
+      this.choosingNameError = '';
 
-      if (!name) {
-        nameError.value = 'Name is required'; // Set error message
+      if (!this.name) {
+        this.nameError = 'Name is required';
         isValid = false;
       }
 
-      if (!choosingName) {
-        choosingNameError.value = 'Choosing name is required'; // Set error message
+      if (!this.choosingName) {
+        this.choosingNameError = 'Choosing name is required';
         isValid = false;
       }
 
-      if (!validateSpecialChars(name) || !validateSpecialChars(choosingName)) {
-        showToast('Validation failed', 'error');
+      if (!validateSpecialChars(this.name) || !validateSpecialChars(this.choosingName)) {
+        this.showToast('Validation failed', 'error');
         isValid = false;
       }
 
       return isValid;
-    };
-
-
-    const submitForm = async (name, choosingName) => {
+    },
+    async submitForm() {
       try {
         const payload = {
-          nameChild: name,
-          userName: choosingName,
+          nameChild: this.name,
+          userName: this.choosingName
         };
-
-        const response = await postRequest(`${process.env.VUE_APP_TITLE}addChildName`, payload);
+        const response = await postRequest(`${process.env.VUE_APP_URL}/addChildName`, payload);
 
         if (response) {
-          showToast(`${choosingName}, se vidimo cež ${calculateWeeksDifference('28.7.2023')} tednov`, 'success');
+          this.showToast(`${this.choosingName}, se vidimo cež ${calculateWeeksDifference('28.7.2023')} tednov`, 'success');
           return true;
         }
       } catch (error) {
-        showToast(`An error occurred`, 'error');
+        this.showToast('An error occurred', 'error');
       }
-
       return false;
-    };
-
-    const checkForm = async (e) => {
+    },
+    async checkForm(e) {
       e.preventDefault();
-      console.log(name, choosingName, 'name, choosingName');
-      if (validateForm(name.value, choosingName.value)) {
-        const isSuccess = await submitForm(name.value, choosingName.value);
-        console.log(isSuccess, 'isSuccess');
+      if (this.validateForm()) {
+        const isSuccess = await this.submitForm();
         if (isSuccess) {
-          name.value = '';
-          choosingName.value = '';
+          this.name = '';
+          this.choosingName = '';
         }
       }
-    };
-
-    return {
-      name,
-      choosingName,
-      showToast,
-      checkForm,
-      nameError, // add this
-      choosingNameError
-    };
-  },
-});
+    }
+  }
+};
 </script>
 
-<style scoped></style>
+<style ></style>

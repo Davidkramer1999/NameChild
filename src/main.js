@@ -4,15 +4,24 @@ import Routes from './Router/router';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import moment from 'moment';
+
+
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
+import Column from 'primevue/column';
+import Toast from 'primevue/toast';
+import Row from 'primevue/row';
 
 const app = createApp(App);
 
 app.config.globalProperties.moment = moment;
 
-app.use(PrimeVue, { unstyled: true });
+app.use(PrimeVue, { ripple: true });
 app.use(ToastService);
+
+app.component('Column', Column);
+app.component('Toast', Toast);
+app.component('Row', Row);
 
 app.use(Routes);
 

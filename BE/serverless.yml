@@ -6,6 +6,18 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: eu-central-1
+  httpApi:
+    cors:
+      allowedOrigins:
+        - 'https://davidkramer1999.github.io/predlagaj-ime/#/'
+        - 'http://localhost:8080'
+      allowedHeaders:
+        - Content-Type
+        - X-PINGOTHER
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
   deploymentMethod: direct
   environment:
     DYNAMODB_CUSTOMER_TABLE: ${self:service}-customerTable-${sls:stage}

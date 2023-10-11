@@ -1,4 +1,5 @@
 export const postRequest = async (url, data) => {
+    console.log("postRequest", url, data);
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -7,12 +8,9 @@ export const postRequest = async (url, data) => {
             },
             body: JSON.stringify(data),
         });
-        if (response.ok) {
-            return await response.json();
-        } else {
-            throw new Error("Failed to fetch");
-        }
+        return await response.json();
     } catch (error) {
+        console.log("error", error);
         throw error;
     }
 };
