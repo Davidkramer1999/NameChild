@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "no-useless-escape": "error"
+  },
+  "extends": ["plugin:vue/base"]
+}
