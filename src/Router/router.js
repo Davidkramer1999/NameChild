@@ -1,14 +1,15 @@
-import Pictures from "../components/Pictures"
 import BabyPictures from "../components/BabyPictures"
-export default [
-    {
-        path: "/Pictures",
-        name: "Pictures",
-        component: Pictures
-    },
-    {
-        path: "/",
-        name: "BabyPictures",
-        component: BabyPictures
-    }
-]
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: [
+        {
+            path: "/",
+            name: "BabyPictures",
+            component: BabyPictures
+        }
+    ]
+})
+
+export default router

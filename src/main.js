@@ -1,27 +1,35 @@
-import Vue from 'vue'
-import App from './App.vue'
-import Routes from "./Router/router"
-import VueRouter from 'vue-router'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import moment from 'moment'
-import Toasted from 'vue-toasted';
-Vue.use(Toasted)
-
-Vue.prototype.moment = moment
-
-Vue.config.productionTip = false
-Vue.use(VueRouter);
-
-const router = new VueRouter({
-  routes: Routes,
-})
+import { createApp } from 'vue';
+import App from './App.vue';
+import Routes from './Router/router';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import moment from 'moment';
 
 
-new Vue({
-  render: h => h(App),
-  mounted() {
-    AOS.init()
-  },
-  router: router,
-}).$mount('#app')
+import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
+import Column from 'primevue/column';
+import Toast from 'primevue/toast';
+import Row from 'primevue/row';
+import InputText from 'primevue/inputtext';
+
+
+export const app = createApp(App);
+
+app.config.globalProperties.moment = moment;
+
+app.use(PrimeVue);
+app.use(ToastService);
+
+app.component('Column', Column);
+app.component('Toast', Toast);
+app.component('Row', Row);
+app.component('InputText', InputText);
+
+
+app.use(Routes);
+
+
+app.mount('#app').$nextTick(() => {
+  AOS.init();
+});

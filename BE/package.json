@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1333.0",
+    "serverless": "^3.35.2",
     "uuid": "^9.0.0"
   }
 }

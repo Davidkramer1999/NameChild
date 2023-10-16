@@ -10,7 +10,7 @@ module.exports.getChildName = async (event) => {
   const result = await dynamodb.scan(scanParams).promise();
 
   let statusCode = 200
-  if(!result){
+  if (!result) {
     statusCode = 404
     body = 'User not found!'
   }
@@ -19,7 +19,7 @@ module.exports.getChildName = async (event) => {
   return {
     statusCode,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": '*',
       "Access-Control-Allow-Credentials": true,
     },
     body: JSON.stringify({
