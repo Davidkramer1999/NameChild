@@ -21,8 +21,8 @@ import CustomInput from './CustomInput.vue';
 import CustomButton from './CustomButton.vue';
 import ErrorMessage from './ErrorMessage.vue';
 import { postRequest } from './services/apiService';
-import { useToast } from 'primevue/usetoast';
 import { calculateWeeksDifference, validateSpecialChars } from './utilities/utilities';
+import { infoToast, errorToast } from './ToastHandler';
 
 export default {
   name: 'InputName',
@@ -30,17 +30,6 @@ export default {
     CustomInput,
     CustomButton,
     ErrorMessage
-  },
-  setup() {
-    const toast = useToast();
-
-    function showToast(message, severity) {
-      toast.add({ severity: severity, summary: message, life: 3000 });
-    }
-
-    return {
-      showToast
-    };
   },
   data() {
     return {
@@ -68,7 +57,8 @@ export default {
       }
 
       if (!validateSpecialChars(this.name) || !validateSpecialChars(this.choosingName)) {
-        this.showToast('Validation failed', 'error');
+        console.log("faiil");
+        errorToast('Validation failed', 'error');
         isValid = false;
       }
 
@@ -81,13 +71,12 @@ export default {
           userName: this.choosingName
         };
         const response = await postRequest(`${process.env.VUE_APP_URL}/addChildName`, payload);
+        console.log(response, 'response');
 
-        if (response) {
-          this.showToast(`${this.choosingName}, se vidimo cež ${calculateWeeksDifference('28.7.2023')} tednov`, 'success');
-          return true;
-        }
+        infoToast(`${this.choosingName}, se vidimo cež ${calculateWeeksDifference('28.7.2023')} tednov`, 'success');
+
       } catch (error) {
-        this.showToast('An error occurred', 'error');
+        errorToast('An error occurred', 'error');
       }
       return false;
     },

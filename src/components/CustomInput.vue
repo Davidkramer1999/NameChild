@@ -1,16 +1,12 @@
 <template>
   <div>
-    <input
-      :type="type"
-      :value="modelValue"
-      @input="updateValue($event.target.value)"
-      :placeholder="placeholder"
-      class="custom-input"
-    />
+    <InputText :type="type" :value="modelValue" @input="updateValue($event.target.value)" :placeholder="placeholder"
+      class="custom-input" />
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     type: String,
@@ -26,7 +22,6 @@ export default {
 </script>
 
 <style scoped>
-
 input {
   width: 80% !important;
   height: 40px;
@@ -38,6 +33,7 @@ input {
   font-size: 20px;
   color: black;
 }
+
 input:focus {
   border: 4px solid grey;
 }

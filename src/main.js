@@ -11,17 +11,21 @@ import ToastService from 'primevue/toastservice';
 import Column from 'primevue/column';
 import Toast from 'primevue/toast';
 import Row from 'primevue/row';
+import InputText from 'primevue/inputtext';
 
-const app = createApp(App);
+
+export const app = createApp(App);
 
 app.config.globalProperties.moment = moment;
 
-app.use(PrimeVue, { ripple: true });
+app.use(PrimeVue);
 app.use(ToastService);
 
 app.component('Column', Column);
 app.component('Toast', Toast);
 app.component('Row', Row);
+app.component('InputText', InputText);
+
 
 app.use(Routes);
 

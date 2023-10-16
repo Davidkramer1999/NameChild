@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="navigation">
-      <Toast />
       <router-view></router-view>
     </div>
   </div>
