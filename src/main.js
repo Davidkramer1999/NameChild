@@ -32,4 +32,4 @@ app.use(Routes);
 
 app.mount('#app').$nextTick(() => {
   AOS.init();
-});
+}); 

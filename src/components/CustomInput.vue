@@ -27,7 +27,7 @@ input {
   height: 40px;
   border-radius: 30px;
   outline: none;
-  padding: 0px 40px 0px 20px;
+  padding: 0px 20px 0px 20px;
   border: 3px solid grey;
   background: lightblue;
   font-size: 20px;
